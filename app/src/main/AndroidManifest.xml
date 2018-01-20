@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Student"
+            android:label="Join a Session" />
+        <activity
+            android:name=".Professor"
+            android:label="Start a Session" />
+        <activity android:name=".ProfSession" />
+        <activity android:name=".StudSession"></activity>
     </application>
 
 </manifest>
