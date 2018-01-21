@@ -2,6 +2,7 @@ package com.jhacks.vrclassroom;
 
 
 import android.Manifest;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -54,7 +55,8 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private Subscriber mSubscriber;
     private VrVideoView mVrVideoView;
     private boolean mIsPaused;
-
+    private Uri mUri;
+    private Uri.Builder mUriBuilder;
 
 
     public void fetchSessionConnectionData() {
@@ -66,6 +68,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
             @Override
             public void onResponse(JSONObject response) {
                 try {
+
                     API_KEY = response.getString("apiKey");
                     SESSION_ID = response.getString("sessionId");
                     TOKEN = response.getString("token");
@@ -75,9 +78,12 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
                     Log.i(LOG_TAG, "TOKEN: " + TOKEN);
                     Log.i(LOG_TAG, "NAME: " + NAME);
 
-                    mSession = new Session.Builder(StudSession.this, API_KEY, SESSION_ID).build();
-                    mSession.setSessionListener(StudSession.this);
-                    mSession.connect(TOKEN);
+                   // mUriBuilder = new Uri.Builder();
+                    VideoLoaderTask mBackgroundVideoLoaderTask = new VideoLoaderTask();
+                    mBackgroundVideoLoaderTask.execute();
+                   // mSession = new Session.Builder(StudSession.this, API_KEY, SESSION_ID).build();
+                    //mSession.setSessionListener(StudSession.this);
+                  //  mSession.connect(TOKEN);
 
                 } catch (JSONException error) {
                     Log.e(LOG_TAG, "Web Service error: " + error.getMessage());
@@ -99,16 +105,37 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
         Bundle extras = getIntent().getExtras();
         NAME = extras.getString("studSesId");
-
+        mUri.parse(NAME);
         requestPermissions();
-        mVrVideoView = (VrVideoView) findViewById(R.id.video_view);
-        mVrVideoView.setEventListener(new ActivityEventListener());
+
+
+    }
+
+    private static final String STATE_PROGRESS = "state_progress";
+    private static final String STATE_DURATION = "state_duration";
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putLong(STATE_PROGRESS, mVrVideoView.getCurrentPosition());
+        outState.putLong(STATE_DURATION, mVrVideoView.getDuration());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        long progress = savedInstanceState.getLong(STATE_PROGRESS);
+
+        mVrVideoView.seekTo(progress);
     }
 
     private class ActivityEventListener extends VrVideoEventListener {
         @Override
         public void onLoadSuccess() {
             super.onLoadSuccess();
+            mIsPaused = false;
         }
 
         @Override
@@ -129,7 +156,11 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         @Override
         public void onCompletion() {
             super.onCompletion();
+            //Restart the video, allowing it to loop
+            mVrVideoView.seekTo(0);
         }
+
+
     }
 
     @Override
@@ -145,12 +176,13 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         mVrVideoView.resumeRendering();
         mIsPaused = false;
     }
-    
+
     @Override
     protected void onDestroy() {
         mVrVideoView.shutdown();
         super.onDestroy();
     }
+
 
 
 
@@ -161,7 +193,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
             try {
                 VrVideoView.Options options = new VrVideoView.Options();
                 options.inputType = VrVideoView.Options.TYPE_MONO;
-                mVrVideoView.loadVideoFromAsset("seaturtle.mp4", options);
+                mVrVideoView.loadVideo(mUri, options);
             } catch( IOException e ) {
                 //Handle exception
             }
@@ -183,7 +215,9 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         String[] perms = { Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO };
         if (EasyPermissions.hasPermissions(this, perms)) {
             // initialize view objects from your layout
-            mSubscriberViewContainer = findViewById(R.id.subscriber_container);
+    //        mSubscriberViewContainer = findViewById(R.id.subscriber_container);
+            mVrVideoView = (VrVideoView) findViewById(R.id.video_view);
+            mVrVideoView.setEventListener(new ActivityEventListener());
 
             // initialize and connect to the session
             fetchSessionConnectionData();
@@ -221,6 +255,11 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         Log.i(LOG_TAG, "Session Disconnected");
     }
 
+
+
+
+
+
     @Override
     public void onStreamReceived(Session session, Stream stream) {
         Log.i(LOG_TAG, "Stream Received");
@@ -229,9 +268,11 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
             Toast.makeText(this, "You are now connected", Toast.LENGTH_SHORT).show();
             mSubscriber = new Subscriber.Builder(this, stream).build();
             mSession.subscribe(mSubscriber);
-            mSubscriberViewContainer.addView(mSubscriber.getView());
+           // mSubscriberViewContainer.addView(mSubscriber.getView());
         }
     }
+
+
 
     @Override
     public void onStreamDropped(Session session, Stream stream) {
@@ -239,7 +280,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
         if (mSubscriber != null) {
             mSubscriber = null;
-            mSubscriberViewContainer.removeAllViews();
+          //  mSubscriberViewContainer.removeAllViews();
         }
     }
 
