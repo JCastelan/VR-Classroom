@@ -164,7 +164,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
     }
 
-    /*
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -179,7 +179,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         mIsPaused = false;
     }
 
-    */
+
 
     @Override
     protected void onDestroy() {
