@@ -106,7 +106,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
         Bundle extras = getIntent().getExtras();
         NAME = extras.getString("studSesId");
-        mUri.parse(NAME);
+        mUri= Uri.parse(NAME);
         requestPermissions();
 
 
@@ -161,6 +161,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
     }
 
+    /*
     @Override
     protected void onPause() {
         super.onPause();
@@ -174,6 +175,8 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         mVrVideoView.resumeRendering();
         mIsPaused = false;
     }
+
+    */
 
     @Override
     protected void onDestroy() {
