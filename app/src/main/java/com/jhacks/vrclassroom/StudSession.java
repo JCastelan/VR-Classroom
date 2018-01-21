@@ -198,9 +198,9 @@ public class StudSession extends Activity implements  Session.SessionListener/*,
         protected Boolean doInBackground(Void... voids) {
             try {
                 VrVideoView.Options options = new VrVideoView.Options();
-                options.inputType = VrVideoView.Options.TYPE_MONO;
-                //mVrVideoView.loadVideo(Uri.parse(NAME), options);
-                mVrVideoView.loadVideoFromAsset("1234.mp4",options);
+                options.inputType = VrVideoView.Options.FORMAT_DEFAULT;
+                mVrVideoView.loadVideo(Uri.parse("http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"), options);
+                //mVrVideoView.loadVideoFromAsset("1234.mp4",options);
             } catch( IOException e ) {
                 //Handle exception
                 mVrVideoView.post(new Runnable() {
