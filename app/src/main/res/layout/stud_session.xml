@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.jhacks.vrclassroom.StudSession">
 
+    <TextView
+        android:id="@+id/notCon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not Connected"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +26,7 @@
         <com.google.vr.sdk.widgets.video.VrVideoView
             android:id="@+id/video_view"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:layout_height="match_parent" />
 
         <!--
         <SeekBar
@@ -33,26 +44,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/notCon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Not Connected"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"/>
-
-    <!--
-Thanks to
-
-https://code.tutsplus.com/tutorials/
-
-
-for providing nice tutorial code
--->
-
     <!--
         <FrameLayout
             android:layout_width="fill_parent"
@@ -62,10 +53,12 @@ for providing nice tutorial code
                 android:layout_height="fill_parent"
                 android:id="@+id/subscriber_container" />
         </FrameLayout>
+    -->
 
--->
-
-
-
+    <!--
+    Thanks to
+    https://code.tutsplus.com/tutorials/
+    for providing nice tutorial code
+    -->
 
 </android.support.constraint.ConstraintLayout>

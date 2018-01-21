@@ -2,12 +2,14 @@ package com.jhacks.vrclassroom;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -41,7 +43,7 @@ https://code.tutsplus.com/tutorials
 for tutorial code for VR
  */
 
-public class StudSession extends AppCompatActivity implements  Session.SessionListener/*, PublisherKit.PublisherListener*/  {
+public class StudSession extends Activity implements  Session.SessionListener/*, PublisherKit.PublisherListener*/  {
 
     private static String API_KEY, SESSION_ID, TOKEN, NAME; // = "46043342";
     //private static String SESSION_ID = "2_MX40NjA0MzM0Mn5-MTUxNjQ3NzQxODk3Mn5TZnV5MS9kMm9OcUdJQVpCVG9UVmFYR25-fg";

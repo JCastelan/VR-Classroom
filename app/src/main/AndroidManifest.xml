@@ -24,7 +24,9 @@
             android:label="Start a Session" />
         <activity
             android:name=".StudSession"
-            android:label="Watching" />
+            android:label="Watching"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <activity
             android:name=".ProfSession"
             android:label="Streaming" >
