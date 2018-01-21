@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.opentok.android.OpentokError;
 import com.opentok.android.Session;
@@ -102,9 +103,12 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         Log.e(LOG_TAG, "Session error: " + opentokError.getMessage());
     }
 
+    // Back disconnects session
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        this.finish();
+        Toast.makeText(this, "Disconnected from Session", Toast.LENGTH_SHORT).show();
+        mSession.disconnect();
+        finish();
     }
 }
