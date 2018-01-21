@@ -56,8 +56,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private Subscriber mSubscriber;
     private VrVideoView mVrVideoView;
     private boolean mIsPaused;
-    private Uri mUri;
-    private Uri.Builder mUriBuilder;
+
 
 
     public void fetchSessionConnectionData() {
@@ -106,7 +105,6 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
         Bundle extras = getIntent().getExtras();
         NAME = extras.getString("studSesId");
-        mUri= Uri.parse(NAME);
         requestPermissions();
 
 
@@ -193,8 +191,8 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         protected Boolean doInBackground(Void... voids) {
             try {
                 VrVideoView.Options options = new VrVideoView.Options();
-                options.inputType = VrVideoView.Options.TYPE_MONO;
-                mVrVideoView.loadVideo(mUri, options);
+                options.inputType = VrVideoView.Options.FORMAT_DEFAULT;
+                mVrVideoView.loadVideo(Uri.parse(NAME), options);
             } catch( IOException e ) {
                 //Handle exception
             }
