@@ -305,7 +305,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     public void onBackPressed() {
         super.onBackPressed();
         Toast.makeText(this, "Disconnected from Session", Toast.LENGTH_SHORT).show();
-        mSession.disconnect();
+        if (mSession != null) { mSession.disconnect(); }
         finish();
     }
 }
