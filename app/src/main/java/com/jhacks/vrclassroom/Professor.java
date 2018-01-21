@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Professor extends AppCompatActivity {
 
@@ -27,8 +28,13 @@ public class Professor extends AppCompatActivity {
         EditText sesId = findViewById(R.id.profSesId);
         String sesIdString = sesId.getText().toString();
 
-        Intent startSession = new Intent(Professor.this, ProfSession.class);
-        startSession.putExtra("profSesId", sesIdString);
-        startActivity(startSession);
+        if (sesIdString.matches("")) {
+            Toast.makeText(this, "Please insert a Class Name", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent startSession = new Intent(Professor.this, ProfSession.class);
+            startSession.putExtra("profSesId", sesIdString);
+            startActivity(startSession);
+        }
     }
 }

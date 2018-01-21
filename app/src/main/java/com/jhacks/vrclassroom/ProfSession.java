@@ -130,6 +130,7 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     @Override
     public void onConnected(Session session) {
         Log.i(LOG_TAG, "Session Connected");
+        Toast.makeText(this, "You are now streaming live", Toast.LENGTH_SHORT).show();
 
         mPublisher = new Publisher.Builder(this).build();
         mPublisher.setPublisherListener(this);

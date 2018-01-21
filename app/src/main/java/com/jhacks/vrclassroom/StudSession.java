@@ -130,7 +130,6 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     @Override
     public void onConnected(Session session) {
         Log.i(LOG_TAG, "Session Connected");
-
     }
 
     @Override
@@ -138,12 +137,12 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         Log.i(LOG_TAG, "Session Disconnected");
     }
 
-
     @Override
     public void onStreamReceived(Session session, Stream stream) {
         Log.i(LOG_TAG, "Stream Received");
 
         if (mSubscriber == null) {
+            Toast.makeText(this, "You are now connected", Toast.LENGTH_SHORT).show();
             mSubscriber = new Subscriber.Builder(this, stream).build();
             mSession.subscribe(mSubscriber);
             mSubscriberViewContainer.addView(mSubscriber.getView());
