@@ -18,6 +18,14 @@
         android:layout_height="wrap_content"
         android:text="switch camera"
         android:onClick="onClickSendMessage"
+        app:layout_constraintBottom_toTopOf="@id/button3"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="More"
+        android:onClick="onClickMore"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

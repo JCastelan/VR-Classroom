@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".Student"
-            android:label="Join a Session "/>
+            android:label="Join a Session " />
         <activity
             android:name=".Professor"
             android:label="Start a Session" />
@@ -27,9 +27,9 @@
             android:label="Watching" />
         <activity
             android:name=".ProfSession"
-            android:label="Streaming" >
-
-        </activity>
+            android:label="Streaming" />
+        <activity android:name=".ProfMenu" />
+        <activity android:name=".AskQuestion"></activity>
     </application>
 
 </manifest>

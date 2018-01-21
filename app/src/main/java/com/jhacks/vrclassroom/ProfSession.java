@@ -1,6 +1,7 @@
 package com.jhacks.vrclassroom;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
-    private Session mSession;
+    public static Session mSession;
     private Publisher mPublisher;
     private FrameLayout mPublisherViewContainer;
 
@@ -190,5 +191,10 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
         mPublisher.cycleCamera();
         mSession.sendSignal("chat", "Hello");
         Toast.makeText(this, "Sending message", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClickMore(View view){
+        Intent intent = new Intent(this, ProfMenu.class);
+        startActivity(intent);
     }
 }
