@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.opentok.android.BaseVideoCapturer;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -31,7 +32,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class ProfSession extends AppCompatActivity implements  Session.SessionListener, PublisherKit.PublisherListener  {
 
-    private static String API_KEY, SESSION_ID, TOKEN, NAME; // = "46043342";
+    private static String API_KEY, SESSION_ID, TOKEN, NAME, METADATA; // = "46043342";
     //private static String SESSION_ID = "2_MX40NjA0MzM0Mn5-MTUxNjQ3NzQxODk3Mn5TZnV5MS9kMm9OcUdJQVpCVG9UVmFYR25-fg";
     //private static String TOKEN = "T1==cGFydG5lcl9pZD00NjA0MzM0MiZzaWc9YTM5Zjk1YWM5MjAyZDllN2Q1ZWMwYzIyOGMwMGE3YmVmZWRmMDYzZTpzZXNzaW9uX2lkPTJfTVg0ME5qQTBNek0wTW41LU1UVXhOalEzTnpReE9EazNNbjVUWm5WNU1TOWtNbTlPY1VkSlFWcENWRzlVVm1GWVIyNS1mZyZjcmVhdGVfdGltZT0xNTE2NDc3NTU1Jm5vbmNlPTAuNTIxMjg4MzcyNDM4NTM5MyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTE5MDY5NTU0JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -40,6 +41,7 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
 
     public static Session mSession;
     private Publisher mPublisher;
+    private BaseVideoCapturer bVC;
     private FrameLayout mPublisherViewContainer;
 
     public void fetchSessionConnectionData() {
@@ -63,6 +65,8 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
                     mSession = new Session.Builder(ProfSession.this, API_KEY, SESSION_ID).build();
                     mSession.setSessionListener(ProfSession.this);
                     mSession.connect(TOKEN);
+
+
 
                 } catch (JSONException error) {
                     Log.e(LOG_TAG, "Web Service error: " + error.getMessage());
@@ -166,6 +170,10 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     @Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         Log.i(LOG_TAG, "Publisher onStreamCreated");
+        METADATA = mSession.getConnection().getData();
+        Log.i(LOG_TAG, "METADATA::: " + METADATA);
+        //bVC = BaseVideoCapturer();
+        //bVC.init();
     }
 
     @Override
@@ -183,6 +191,8 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     public void onBackPressed() {
         super.onBackPressed();
         Toast.makeText(this, "Disconnected from Session", Toast.LENGTH_SHORT).show();
+        METADATA = mSession.getConnection().getData();
+        Log.i(LOG_TAG, "METADATA::: " + METADATA);
         mSession.disconnect();
         finish();
     }
@@ -191,6 +201,8 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
         mPublisher.cycleCamera();
         mSession.sendSignal("chat", "Hello");
         Toast.makeText(this, "Sending message", Toast.LENGTH_SHORT).show();
+        METADATA = mSession.getConnection().getData();
+        Log.i(LOG_TAG, "METADATA::: " + METADATA);
     }
 
     public void onClickMore(View view){

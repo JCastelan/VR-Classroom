@@ -30,7 +30,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class StudSession extends AppCompatActivity implements  Session.SessionListener, Session.SignalListener/*, PublisherKit.PublisherListener*/  {
 
-    private static String API_KEY, SESSION_ID, TOKEN, NAME; // = "46043342";
+    private static String API_KEY, SESSION_ID, TOKEN, NAME, METADATA; // = "46043342";
     //private static String SESSION_ID = "2_MX40NjA0MzM0Mn5-MTUxNjQ3NzQxODk3Mn5TZnV5MS9kMm9OcUdJQVpCVG9UVmFYR25-fg";
     //private static String TOKEN = "T1==cGFydG5lcl9pZD00NjA0MzM0MiZzaWc9YTM5Zjk1YWM5MjAyZDllN2Q1ZWMwYzIyOGMwMGE3YmVmZWRmMDYzZTpzZXNzaW9uX2lkPTJfTVg0ME5qQTBNek0wTW41LU1UVXhOalEzTnpReE9EazNNbjVUWm5WNU1TOWtNbTlPY1VkSlFWcENWRzlVVm1GWVIyNS1mZyZjcmVhdGVfdGltZT0xNTE2NDc3NTU1Jm5vbmNlPTAuNTIxMjg4MzcyNDM4NTM5MyZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTE5MDY5NTU0JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -132,6 +132,8 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     @Override
     public void onConnected(Session session) {
         Log.i(LOG_TAG, "Session Connected");
+        METADATA = mSession.getConnection().getData();
+        Log.i(LOG_TAG, "METADATA::: " + METADATA);
     }
 
     @Override
@@ -149,6 +151,8 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
             mSession.subscribe(mSubscriber);
             mSubscriberViewContainer.addView(mSubscriber.getView());
         }
+        METADATA = mSession.getConnection().getData();
+        Log.i(LOG_TAG, "METADATA::: " + METADATA);
     }
 
     @Override
@@ -189,6 +193,28 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         if (SIGNAL_TYPE != null && type.equals(SIGNAL_TYPE)) {
             showMessage(data, remote);
         }*/
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //SOMEONE LOOK AT THIS
+        ///////////////////////////////////////////////////////////////////////////////////////////
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+        //METADATA = mSession.getConnection().getData();
+        Log.i(LOG_TAG, "Question::: " + data);
+        //String copy = (String) data;
+        String[] qData = new String[5];
+        for( int index = 0; index < 5; index++) {
+            int counter = 0;
+            String temp = data.substring(0,1);
+            while(  true){
+                if(temp.equals(",") || (counter<data.length()) || temp == null){ break;}else{
+                    qData[index] = qData[index].concat(temp);
+                    counter++;
+                    temp = data.substring(counter, counter+1);
+                }
+            }
+            Log.i(LOG_TAG, "Question::: " + index+ qData[index]);
+        }
+
+
     }
 }
