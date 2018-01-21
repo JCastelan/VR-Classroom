@@ -4,31 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jhacks.vrclassroom.MainActivity">
+    tools:context="com.jhacks.vrclassroom.Student">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/professor"
+        <EditText
+            android:id="@+id/sesId"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:text="Professor"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:hint="Session ID"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
 
         <Button
-            android:id="@+id/student"
+            android:id="@+id/joinSes"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Student"
-            android:textAlignment="textStart"
+            android:onClick="onClickJoinSes"
+            android:text="Join Session"
             android:textAllCaps="false"
             android:textSize="24sp" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
