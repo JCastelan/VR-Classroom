@@ -17,18 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
 
+
+     <!--
         <SeekBar
             android:id="@+id/seek_bar"
             android:layout_height="32dp"
             android:layout_width="match_parent"
             style="?android:attr/progressBarStyleHorizontal"/>
 
+
         <Button
             android:id="@+id/btn_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Volume Toggle"/>
-
+-->
 
 
 

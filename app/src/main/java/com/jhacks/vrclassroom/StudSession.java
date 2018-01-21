@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.FrameLayout;
 
+import com.google.vr.sdk.widgets.video.VrVideoView;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -34,6 +35,12 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private FrameLayout mSubscriberViewContainer;
     private Subscriber mSubscriber;
 
+    private VrVideoView videoWidget;
+    private boolean mIsPaused;
+    private boolean mIsMuted;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,10 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         setContentView(R.layout.stud_session);
 
         requestPermissions();
+        videoWidget = (VrVideoView) findViewById(R.id.video_view);
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
