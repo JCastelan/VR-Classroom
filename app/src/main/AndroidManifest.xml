@@ -16,10 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Student" />
-        <activity android:name=".Professor" />
-        <activity android:name=".StudSession" />
-        <activity android:name=".ProfSession"></activity>
+        <activity
+            android:name=".Student"
+            android:label="Join a Session "/>
+        <activity
+            android:name=".Professor"
+            android:label="Start a Session" />
+        <activity
+            android:name=".StudSession"
+            android:label="Watching" />
+        <activity
+            android:name=".ProfSession"
+            android:label="Streaming" >
+
+        </activity>
     </application>
 
 </manifest>

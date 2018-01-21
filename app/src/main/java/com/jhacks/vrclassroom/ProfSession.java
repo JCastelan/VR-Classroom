@@ -12,7 +12,6 @@ import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
-import com.opentok.android.Subscriber;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -30,8 +29,6 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     private Session mSession;
     private Publisher mPublisher;
     private FrameLayout mPublisherViewContainer;
-    //private FrameLayout mSubscriberViewContainer;
-    private Subscriber mSubscriber;
 
 
     @Override
@@ -55,7 +52,6 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
         if (EasyPermissions.hasPermissions(this, perms)) {
             // initialize view objects from your layout
             mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
-            //mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
 
             // initialize and connect to the session
             mSession = new Session.Builder(this, API_KEY, SESSION_ID).build();
@@ -89,22 +85,11 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     @Override
     public void onStreamReceived(Session session, Stream stream) {
         Log.i(LOG_TAG, "Stream Received");
-
-        /*if (mSubscriber == null) {
-            mSubscriber = new Subscriber.Builder(this, stream).build();
-            mSession.subscribe(mSubscriber);
-            //mSubscriberViewContainer.addView(mSubscriber.getView());
-        }*/
     }
 
     @Override
     public void onStreamDropped(Session session, Stream stream) {
         Log.i(LOG_TAG, "Stream Dropped");
-
-        /*if (mSubscriber != null) {
-            mSubscriber = null;
-            mSubscriberViewContainer.removeAllViews();
-        }*/
     }
 
     @Override
@@ -128,4 +113,10 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         Log.e(LOG_TAG, "Publisher error: " + opentokError.getMessage());
     }
+
+    /*@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }*/
 }

@@ -25,12 +25,12 @@ public class Student extends AppCompatActivity {
 
     public void onClickJoinSes(View V) {
         // Get session id text from editText
-        EditText sesId = findViewById(R.id.sesId);
+        EditText sesId = findViewById(R.id.studSesId);
         String sesIdString = sesId.getText().toString();
 
         // Start new activity and send session ID
         Intent goToSession = new Intent(Student.this, StudSession.class);
-        goToSession.putExtra("sesId", sesIdString);
+        goToSession.putExtra("studSesId", sesIdString);
         startActivity(goToSession);
     }
 }

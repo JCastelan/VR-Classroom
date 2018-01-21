@@ -12,20 +12,20 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/sesId"
+            android:id="@+id/studSesId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:ems="10"
             android:hint="Session ID"
             android:inputType="textPersonName"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/joinSes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
             android:onClick="onClickJoinSes"
             android:text="Join Session"
             android:textAllCaps="false"

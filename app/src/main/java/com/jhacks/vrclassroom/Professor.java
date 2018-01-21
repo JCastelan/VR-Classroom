@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Professor extends AppCompatActivity {
 
@@ -17,9 +18,17 @@ public class Professor extends AppCompatActivity {
         startSes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startSession = new Intent(Professor.this, ProfSession.class);
-                startActivity(startSession);
+                onClickStartSes(view);
             }
         });
+    }
+
+    public void onClickStartSes(View v) {
+        EditText sesId = findViewById(R.id.profSesId);
+        String sesIdString = sesId.getText().toString();
+
+        Intent startSession = new Intent(Professor.this, ProfSession.class);
+        startSession.putExtra("profSesId", sesIdString);
+        startActivity(startSession);
     }
 }

@@ -9,8 +9,6 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.opentok.android.OpentokError;
-import com.opentok.android.Publisher;
-import com.opentok.android.PublisherKit;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
@@ -29,8 +27,6 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private static final int RC_VIDEO_APP_PERM = 124;
 
     private Session mSession;
-    //private Publisher mPublisher;
-    //private FrameLayout mPublisherViewContainer;
     private FrameLayout mSubscriberViewContainer;
     private Subscriber mSubscriber;
 
@@ -54,9 +50,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private void requestPermissions() {
         String[] perms = { Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO };
         if (EasyPermissions.hasPermissions(this, perms)) {
-            // initialize view objects from your layout
-            //mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
-            mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
+            mSubscriberViewContainer = findViewById(R.id.subscriber_container);
 
             // initialize and connect to the session
             mSession = new Session.Builder(this, API_KEY, SESSION_ID).build();
@@ -74,11 +68,6 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     public void onConnected(Session session) {
         Log.i(LOG_TAG, "Session Connected");
 
-        /*mPublisher = new Publisher.Builder(this).build();
-        mPublisher.setPublisherListener(this);
-
-        mPublisherViewContainer.addView(mPublisher.getView());
-        mSession.publish(mPublisher);*/
     }
 
     @Override
@@ -113,37 +102,9 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         Log.e(LOG_TAG, "Session error: " + opentokError.getMessage());
     }
 
-    // PublisherListener methods
-
-    /*@Override
-    public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
-        Log.i(LOG_TAG, "Publisher onStreamCreated");
-    }
-
     @Override
-    public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
-        Log.i(LOG_TAG, "Publisher onStreamDestroyed");
-    }
-
-    @Override
-    public void onError(PublisherKit publisherKit, OpentokError opentokError) {
-        Log.e(LOG_TAG, "Publisher error: " + opentokError.getMessage());
-    }*/
-}
-
-/*public class StudSession extends AppCompatActivity {
-
-    String sesId;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.stud_session);
-
-        // Get session ID from other activity
-        Bundle extras = getIntent().getExtras();
-        sesId = extras.getString("sesId");
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }
-*/
