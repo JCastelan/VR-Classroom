@@ -15,20 +15,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-public class StudSession extends AppCompatActivity implements  Session.SessionListener/*, PublisherKit.PublisherListener*/  {
+public class StudSession extends AppCompatActivity implements  Session.SessionListener, Session.SignalListener/*, PublisherKit.PublisherListener*/  {
 
     private static String API_KEY, SESSION_ID, TOKEN, NAME; // = "46043342";
     //private static String SESSION_ID = "2_MX40NjA0MzM0Mn5-MTUxNjQ3NzQxODk3Mn5TZnV5MS9kMm9OcUdJQVpCVG9UVmFYR25-fg";
@@ -61,7 +61,9 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
                     mSession = new Session.Builder(StudSession.this, API_KEY, SESSION_ID).build();
                     mSession.setSessionListener(StudSession.this);
+                    mSession.setSignalListener(StudSession.this);
                     mSession.connect(TOKEN);
+
 
                 } catch (JSONException error) {
                     Log.e(LOG_TAG, "Web Service error: " + error.getMessage());
@@ -171,5 +173,22 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         Toast.makeText(this, "Disconnected from Session", Toast.LENGTH_SHORT).show();
         mSession.disconnect();
         finish();
+    }
+
+    /*@Override
+    protected void onSignalReceived(Session session, String type, String data, Connection connection) {
+        String myConnectionId = session.getConnection().getConnectionId();
+        if (connection != null && connection.getConnectionId().equals(myConnectionId)) {
+            // Signal received from another client
+        }
+    }*/
+    @Override
+    public void onSignalReceived(Session session, String type, String data, Connection connection) {
+
+        /*boolean remote = !connection.equals(mSession.getConnection());
+        if (SIGNAL_TYPE != null && type.equals(SIGNAL_TYPE)) {
+            showMessage(data, remote);
+        }*/
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
 }

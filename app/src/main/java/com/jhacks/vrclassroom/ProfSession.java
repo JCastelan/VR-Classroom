@@ -189,5 +189,6 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     public void onClickSendMessage(View view){
         mPublisher.cycleCamera();
         mSession.sendSignal("chat", "Hello");
+        Toast.makeText(this, "Sending message", Toast.LENGTH_SHORT).show();
     }
 }
