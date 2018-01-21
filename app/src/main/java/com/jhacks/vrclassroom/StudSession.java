@@ -110,6 +110,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
     }
 
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putLong(STATE_PROGRESS, mVrVideoView.getCurrentPosition());
@@ -136,7 +137,11 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
         @Override
         public void onLoadError(String errorMessage) {
-            super.onLoadError(errorMessage);
+            //super.onLoadError(errorMessage);
+            // An error here is normally due to being unable to decode the video format.
+            Toast.makeText(
+                    StudSession.this, "Error loading video: " + errorMessage, Toast.LENGTH_LONG)
+                    .show();
         }
 
         @Override
@@ -191,10 +196,17 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         protected Boolean doInBackground(Void... voids) {
             try {
                 VrVideoView.Options options = new VrVideoView.Options();
-                options.inputType = VrVideoView.Options.FORMAT_DEFAULT;
-                mVrVideoView.loadVideo(Uri.parse(NAME), options);
+                options.inputType = VrVideoView.Options.TYPE_MONO;
+                //mVrVideoView.loadVideo(Uri.parse(NAME), options);
+                mVrVideoView.loadVideoFromAsset("1234.mp4",options);
             } catch( IOException e ) {
                 //Handle exception
+                mVrVideoView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(StudSession.this, "Error opening file.", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             return true;
