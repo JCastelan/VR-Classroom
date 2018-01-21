@@ -2,6 +2,7 @@ package com.jhacks.vrclassroom;
 
 
 import android.Manifest;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -19,14 +20,25 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.vr.sdk.widgets.video.VrVideoEventListener;
+import com.google.vr.sdk.widgets.video.VrVideoView;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 
+import java.io.IOException;
+
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+
+/*
+
+Thanks to
+https://code.tutsplus.com/tutorials
+for tutorial code for VR
+ */
 
 public class StudSession extends AppCompatActivity implements  Session.SessionListener/*, PublisherKit.PublisherListener*/  {
 
@@ -38,8 +50,12 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private static final int RC_VIDEO_APP_PERM = 124;
 
     private Session mSession;
-    private FrameLayout mSubscriberViewContainer;
+   // private FrameLayout mSubscriberViewContainer;
     private Subscriber mSubscriber;
+    private VrVideoView mVrVideoView;
+    private boolean mIsPaused;
+
+
 
     public void fetchSessionConnectionData() {
         RequestQueue reqQueue = Volley.newRequestQueue(this);
@@ -85,7 +101,75 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         NAME = extras.getString("studSesId");
 
         requestPermissions();
+        mVrVideoView = (VrVideoView) findViewById(R.id.video_view);
+        mVrVideoView.setEventListener(new ActivityEventListener());
     }
+
+    private class ActivityEventListener extends VrVideoEventListener {
+        @Override
+        public void onLoadSuccess() {
+            super.onLoadSuccess();
+        }
+
+        @Override
+        public void onLoadError(String errorMessage) {
+            super.onLoadError(errorMessage);
+        }
+
+        @Override
+        public void onClick() {
+            super.onClick();
+        }
+
+        @Override
+        public void onNewFrame() {
+            super.onNewFrame();
+        }
+
+        @Override
+        public void onCompletion() {
+            super.onCompletion();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mVrVideoView.pauseRendering();
+        mIsPaused = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mVrVideoView.resumeRendering();
+        mIsPaused = false;
+    }
+    
+    @Override
+    protected void onDestroy() {
+        mVrVideoView.shutdown();
+        super.onDestroy();
+    }
+
+
+
+    class VideoLoaderTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+                VrVideoView.Options options = new VrVideoView.Options();
+                options.inputType = VrVideoView.Options.TYPE_MONO;
+                mVrVideoView.loadVideoFromAsset("seaturtle.mp4", options);
+            } catch( IOException e ) {
+                //Handle exception
+            }
+
+            return true;
+        }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -173,3 +257,4 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         finish();
     }
 }
+

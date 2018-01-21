@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context="com.jhacks.vrclassroom.StudSession">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.google.vr.sdk.widgets.video.VrVideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <!--
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            style="?android:attr/progressBarStyleHorizontal"/>
+
+        <Button
+            android:id="@+id/btn_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volume Toggle"/>
+      -->
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/notCon"
         android:layout_width="wrap_content"
@@ -17,13 +44,28 @@
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"/>
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <!--
+Thanks to
+
+https://code.tutsplus.com/tutorials/
+
+
+for providing nice tutorial code
+-->
+
+    <!--
         <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/subscriber_container" />
-    </FrameLayout>
+            android:layout_height="fill_parent">
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/subscriber_container" />
+        </FrameLayout>
+
+-->
+
+
+
 
 </android.support.constraint.ConstraintLayout>
