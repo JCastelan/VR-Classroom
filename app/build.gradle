@@ -27,4 +27,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.opentok.android:opentok-android-sdk:2.12.0'
     compile 'pub.devrel:easypermissions:0.4.0'
+    compile 'com.android.support:appcompat-v7:26.0.0'
+
+
+
+    compile 'com.google.android.exoplayer:exoplayer:r1.5.10'
+    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
+    // Adds Google VR spatial audio support
+    compile 'com.google.vr:sdk-audio:1.80.0'
+    // Required for all Google VR Apps
+    compile 'com.google.vr:sdk-base:1.80.0'
 }
