@@ -30,7 +30,7 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     private Session mSession;
     private Publisher mPublisher;
     private FrameLayout mPublisherViewContainer;
-    private FrameLayout mSubscriberViewContainer;
+    //private FrameLayout mSubscriberViewContainer;
     private Subscriber mSubscriber;
 
 
@@ -55,7 +55,7 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
         if (EasyPermissions.hasPermissions(this, perms)) {
             // initialize view objects from your layout
             mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
-            mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
+            //mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
 
             // initialize and connect to the session
             mSession = new Session.Builder(this, API_KEY, SESSION_ID).build();
@@ -90,21 +90,21 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
     public void onStreamReceived(Session session, Stream stream) {
         Log.i(LOG_TAG, "Stream Received");
 
-        if (mSubscriber == null) {
+        /*if (mSubscriber == null) {
             mSubscriber = new Subscriber.Builder(this, stream).build();
             mSession.subscribe(mSubscriber);
-            mSubscriberViewContainer.addView(mSubscriber.getView());
-        }
+            //mSubscriberViewContainer.addView(mSubscriber.getView());
+        }*/
     }
 
     @Override
     public void onStreamDropped(Session session, Stream stream) {
         Log.i(LOG_TAG, "Stream Dropped");
 
-        if (mSubscriber != null) {
+        /*if (mSubscriber != null) {
             mSubscriber = null;
             mSubscriberViewContainer.removeAllViews();
-        }
+        }*/
     }
 
     @Override

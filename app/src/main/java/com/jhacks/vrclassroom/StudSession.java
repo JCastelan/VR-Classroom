@@ -19,7 +19,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
-public class StudSession extends AppCompatActivity implements  Session.SessionListener, PublisherKit.PublisherListener  {
+public class StudSession extends AppCompatActivity implements  Session.SessionListener/*, PublisherKit.PublisherListener*/  {
 
     private static String API_KEY = "46043342";
     private static String SESSION_ID = "2_MX40NjA0MzM0Mn5-MTUxNjQ3NzQxODk3Mn5TZnV5MS9kMm9OcUdJQVpCVG9UVmFYR25-fg";
@@ -29,8 +29,8 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     private static final int RC_VIDEO_APP_PERM = 124;
 
     private Session mSession;
-    private Publisher mPublisher;
-    private FrameLayout mPublisherViewContainer;
+    //private Publisher mPublisher;
+    //private FrameLayout mPublisherViewContainer;
     private FrameLayout mSubscriberViewContainer;
     private Subscriber mSubscriber;
 
@@ -55,7 +55,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
         String[] perms = { Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO };
         if (EasyPermissions.hasPermissions(this, perms)) {
             // initialize view objects from your layout
-            mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
+            //mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
             mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
 
             // initialize and connect to the session
@@ -74,11 +74,11 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     public void onConnected(Session session) {
         Log.i(LOG_TAG, "Session Connected");
 
-        mPublisher = new Publisher.Builder(this).build();
+        /*mPublisher = new Publisher.Builder(this).build();
         mPublisher.setPublisherListener(this);
 
         mPublisherViewContainer.addView(mPublisher.getView());
-        mSession.publish(mPublisher);
+        mSession.publish(mPublisher);*/
     }
 
     @Override
@@ -115,7 +115,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
 
     // PublisherListener methods
 
-    @Override
+    /*@Override
     public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
         Log.i(LOG_TAG, "Publisher onStreamCreated");
     }
@@ -128,7 +128,7 @@ public class StudSession extends AppCompatActivity implements  Session.SessionLi
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         Log.e(LOG_TAG, "Publisher error: " + opentokError.getMessage());
-    }
+    }*/
 }
 
 /*public class StudSession extends AppCompatActivity {
