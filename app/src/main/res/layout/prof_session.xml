@@ -7,12 +7,17 @@
     tools:context="com.jhacks.vrclassroom.ProfSession">
 
     <FrameLayout
+        android:id="@+id/publisher_container"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/publisher_container" />
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/button2"></FrameLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="switch camera"
+        android:onClick="onClickSendMessage"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

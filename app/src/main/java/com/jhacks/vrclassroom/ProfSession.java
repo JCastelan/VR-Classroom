@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -14,15 +15,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -184,5 +184,10 @@ public class ProfSession extends AppCompatActivity implements  Session.SessionLi
         Toast.makeText(this, "Disconnected from Session", Toast.LENGTH_SHORT).show();
         mSession.disconnect();
         finish();
+    }
+
+    public void onClickSendMessage(View view){
+        mPublisher.cycleCamera();
+        mSession.sendSignal("chat", "Hello");
     }
 }
